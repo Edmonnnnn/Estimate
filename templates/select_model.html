@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Выбор модели и цветов</title>
+    <style>
+        body {
+            background: #f6f8fa;
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        .container {
+            max-width: 460px;
+            background: #fff;
+            border-radius: 18px;
+            margin: 40px auto;
+            padding: 32px 28px 24px 28px;
+            box-shadow: 0 2px 12px #0001;
+        }
+        h2 {
+            color: #1976d2;
+            margin-top: 0;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #444;
+        }
+        select, input[type="number"] {
+            width: 100%;
+            padding: 9px;
+            border: 1px solid #e3e6eb;
+            border-radius: 7px;
+            font-size: 1em;
+            margin-bottom: 0;
+        }
+        select[multiple] {
+            height: 96px;
+        }
+        button, input[type="submit"] {
+            width: 100%;
+            padding: 11px 0;
+            border: none;
+            border-radius: 7px;
+            background: #1976d2;
+            color: #fff;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.18s;
+        }
+        button:hover, input[type="submit"]:hover {
+            background: #2196f3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Выберите модель, цвета и площадь</h2>
+        <form method="post">
+            <div class="form-group">
+                <label>Категория:</label>
+                <select name="category" id="category" required>
+                    {% for cat in categories %}
+                        <option value="{{ cat }}">{{ cat }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Модель:</label>
+                <select name="model" id="model" required>
+                    <!-- JS заполнит модели -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Цвета (до 5):</label>
+                <select name="colors" multiple size="5" required>
+                    {% for color in colors %}
+                        <option value="{{ color }}">{{ color }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Площадь (м²):</label>
+                <input type="number" name="area" step="0.01" min="0.01" required>
+            </div>
+            <input type="submit" value="Добавить позицию">
+        </form>
+    </div>
+    <script>
+        // Словарь: { категория: [ {name:..., price:...}, ... ] }
+        const models = {{ models_json|safe }};
+        function fillModels() {
+            const cat = document.getElementById('category').value;
+            const modelSelect = document.getElementById('model');
+            modelSelect.innerHTML = "";
+            if (models[cat]) {
+                models[cat].forEach(model => {
+                    const option = document.createElement('option');
+                    option.value = model.name;
+                    option.textContent = model.name + " (" + model.price + " у.е./м²)";
+                    modelSelect.appendChild(option);
+                });
+            }
+        }
+        document.getElementById('category').addEventListener('change', fillModels);
+        window.onload = fillModels;
+    </script>
+</body>
+</html>

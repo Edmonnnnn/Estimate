@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Смета заказа</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', 'Arial', 'DejaVu Sans', sans-serif;
+            background: #f6f8fa;
+            color: #222;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 700px;
+            margin: 30px auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 2px 12px #0001;
+            padding: 32px 32px 24px 32px;
+        }
+        h2 {
+            margin-top: 0;
+            color: #2196f3;
+            letter-spacing: 1px;
+        }
+        h3 {
+            margin-bottom: 10px;
+            color: #444;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+        ul li {
+            margin-bottom: 4px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: #f9fafb;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 9px 12px;
+            border-bottom: 1px solid #e3e6eb;
+        }
+        th {
+            background: #e3f2fd;
+            color: #1976d2;
+            font-weight: 600;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        .total-row td {
+            font-size: 1.1em;
+            font-weight: bold;
+            background: #e3f2fd;
+        }
+        .meta {
+            text-align: right;
+            color: #888;
+            font-size: 0.95em;
+        }
+        .logo {
+            width: 120px;
+            margin-bottom: 18px;
+            opacity: 0.93;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Лого, если нужно: <img class="logo" src="{{ url_for('static', filename='logo.png') }}"> -->
+        <h2>Смета заказа</h2>
+        <div class="meta">Дата: {{ date }}</div>
+        <h3>Данные клиента</h3>
+        <ul>
+            <li><b>Имя:</b> {{ client.name }} {{ client.patronymic }}</li>
+            <li><b>Адрес:</b> {{ client.address }}</li>
+            <li><b>Телефон:</b> {{ client.phone }}</li>
+            <li><b>Email:</b> {{ client.email }}</li>
+        </ul>
+        <h3>Детализация заказа</h3>
+        <table>
+            <tr>
+                <th>Категория</th>
+                <th>Модель</th>
+                <th>Цвета</th>
+                <th>Площадь (м²)</th>
+                <th>Цена модели</th>
+                <th>Сумма цветов</th>
+                <th>Итого</th>
+            </tr>
+            <tr class="total-row">
+                <td>{{ position.category }}</td>
+                <td>{{ position.model }}</td>
+                <td>{{ colors_str }}</td>
+                <td>{{ area }}</td>
+                <td>{{ model_price }}</td>
+                <td>{{ colors_price }}</td>
+                <td>{{ total }}</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
