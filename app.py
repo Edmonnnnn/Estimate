@@ -31,15 +31,15 @@ def client_form():
 def select_model():
     models_df = pd.read_csv('models.csv', delimiter=';')
     colors_df = pd.read_csv('colors.csv', delimiter=';')
-    categories = models_df['категория'].unique().tolist()
+    categories = models_df['Category'].unique().tolist()  # Заменено с 'категория' на 'Category'
     models_dict = {}
     for cat in categories:
-        filtered = models_df[models_df['категория'] == cat]
+        filtered = models_df[models_df['Category'] == cat]
         models_dict[cat] = [
-            {'name': row['название модели'], 'price': row['цена за м²']}
+            {'name': row['Model Name'], 'price': row['Price per m²']}  # Заменено с 'название модели' и 'цена за м²'
             for _, row in filtered.iterrows()
         ]
-    colors = colors_df['название цвета'].tolist()
+    colors = colors_df['Color Name'].tolist()  # Заменено с 'название цвета'
     if request.method == 'POST':
         position = {
             'category': request.form['category'],
@@ -64,13 +64,13 @@ def result():
         return redirect(url_for('client_form'))
     models_df = pd.read_csv('models.csv', delimiter=';')
     colors_df = pd.read_csv('colors.csv', delimiter=';')
-    model_row = models_df[(models_df['категория'] == position['category']) &
-                          (models_df['название модели'] == position['model'])]
-    model_price = float(model_row.iloc[0]['цена за м²']) if not model_row.empty else 0
+    model_row = models_df[(models_df['Category'] == position['category']) &  # Заменено
+                          (models_df['Model Name'] == position['model'])]  # Заменено
+    model_price = float(model_row.iloc[0]['Price per m²']) if not model_row.empty else 0  # Заменено
     selected_colors = position['colors']
     colors_price = sum(
-        float(colors_df[colors_df['название цвета'] == c].iloc[0]['цена'])
-        for c in selected_colors if not colors_df[colors_df['название цвета'] == c].empty
+        float(colors_df[colors_df['Color Name'] == c].iloc[0]['Price'])
+        for c in selected_colors if not colors_df[colors_df['Color Name'] == c].empty
     )
     area = float(position['area'])
     total = f"{(model_price + colors_price) * area:.2f}"
@@ -90,10 +90,10 @@ def result():
     # Красивая кнопка и ссылка под сметой (уже вне контейнера!)
     html += """
     <form method="get" action="/download_pdf" style="text-align:center; margin-top:20px;">
-        <button type="submit" style="padding: 10px 24px; background: #1976d2; color: #fff; border:none; border-radius:7px; font-size:1em; cursor:pointer;">Скачать PDF</button>
+        <button type="submit" style="padding: 10px 24px; background: #1976d2; color: #fff; border:none; border-radius:7px; font-size:1em; cursor:pointer;">Download PDF</button>
     </form>
     <div style="text-align:center; margin-top:12px;">
-        <a href="/" style="color:#2196f3; text-decoration:none;">Начать заново</a>
+        <a href="/" style="color:#2196f3; text-decoration:none;">Start Over</a>
     </div>
     """
     return html
@@ -106,13 +106,13 @@ def download_pdf():
         return redirect(url_for('client_form'))
     models_df = pd.read_csv('models.csv', delimiter=';')
     colors_df = pd.read_csv('colors.csv', delimiter=';')
-    model_row = models_df[(models_df['категория'] == position['category']) &
-                          (models_df['название модели'] == position['model'])]
-    model_price = float(model_row.iloc[0]['цена за м²']) if not model_row.empty else 0
+    model_row = models_df[(models_df['Category'] == position['category']) &
+                          (models_df['Model Name'] == position['model'])]
+    model_price = float(model_row.iloc[0]['Price per m²']) if not model_row.empty else 0
     selected_colors = position['colors']
     colors_price = sum(
-        float(colors_df[colors_df['название цвета'] == c].iloc[0]['цена'])
-        for c in selected_colors if not colors_df[colors_df['название цвета'] == c].empty
+        float(colors_df[colors_df['Color Name'] == c].iloc[0]['Price'])
+        for c in selected_colors if not colors_df[colors_df['Color Name'] == c].empty
     )
     area = float(position['area'])
     total = f"{(model_price + colors_price) * area:.2f}"

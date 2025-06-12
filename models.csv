@@ -1,4 +1,4 @@
-категория;название модели;цена за м²
-квадратная;Model A;25
-шестиугольная;Model B;30
-фриз;Model C;40
+Category;Model Name;Price per m²
+Square;Model A;25
+Hexagonal;Model B;30
+Frieze;Model C;40

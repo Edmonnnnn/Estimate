@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Смета заказа</title>
+    <title>Order Estimate</title>
     <style>
         body {
             font-family: 'Segoe UI', 'Arial', 'DejaVu Sans', sans-serif;
@@ -75,26 +75,26 @@
 </head>
 <body>
     <div class="container">
-        <!-- Лого, если нужно: <img class="logo" src="{{ url_for('static', filename='logo.png') }}"> -->
-        <h2>Смета заказа</h2>
-        <div class="meta">Дата: {{ date }}</div>
-        <h3>Данные клиента</h3>
+        <!-- Logo, if needed: <img class="logo" src="{{ url_for('static', filename='logo.png') }}"> -->
+        <h2>Order Estimate</h2>
+        <div class="meta">Date: {{ date }}</div>
+        <h3>Client Data</h3>
         <ul>
-            <li><b>Имя:</b> {{ client.name }} {{ client.patronymic }}</li>
-            <li><b>Адрес:</b> {{ client.address }}</li>
-            <li><b>Телефон:</b> {{ client.phone }}</li>
+            <li><b>First Name:</b> {{ client.name }} {{ client.patronymic }}</li>
+            <li><b>Address:</b> {{ client.address }}</li>
+            <li><b>Phone:</b> {{ client.phone }}</li>
             <li><b>Email:</b> {{ client.email }}</li>
         </ul>
-        <h3>Детализация заказа</h3>
+        <h3>Order Details</h3>
         <table>
             <tr>
-                <th>Категория</th>
-                <th>Модель</th>
-                <th>Цвета</th>
-                <th>Площадь (м²)</th>
-                <th>Цена модели</th>
-                <th>Сумма цветов</th>
-                <th>Итого</th>
+                <th>Category</th>
+                <th>Model</th>
+                <th>Colors</th>
+                <th>Area (m²)</th>
+                <th>Model Price</th>
+                <th>Colors Total</th>
+                <th>Total</th>
             </tr>
             <tr class="total-row">
                 <td>{{ position.category }}</td>
