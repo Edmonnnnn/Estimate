@@ -1,3 +1,129 @@
+Estimate Application for Calculating Model & Color Costs with PDF Generation
+Description
+
+An interactive web application for calculating the cost of products based on selected models and colors, featuring:
+
+Uploading price lists (models and colors)
+
+Entering client information
+
+Selecting a category, model, up to 5 colors, and area
+
+Adding multiple items (extendable)
+
+Generating a clean and professional estimate (table + PDF)
+
+Easy customization: order history, logo, advanced filtering, etc.
+
+Demo
+
+demo1 demo2
+(place your demo links/screenshots here)
+
+Installation & Setup
+1. Clone or download the repository
+git clone <your_repo_url>
+cd estimate_app
+
+2. Create and activate a virtual environment
+python -m venv venv
+# Windows:
+venv\Scripts\activate
+# macOS/Linux:
+source venv/bin/activate
+
+3. Install dependencies
+pip install -r requirements.txt
+
+4. Install wkhtmltopdf
+
+Download the installer for your OS and install it.
+
+After installation, update the path_wkhtmltopdf variable inside app.py with the correct path to wkhtmltopdf.exe.
+
+5. Add your price lists
+
+models.csv
+
+category;model name;price per m²
+square;Model A;25
+hexagon;Model B;30
+frieze;Model C;40
+
+
+colors.csv
+
+color name;price
+White;5
+Red;7
+Blue;6
+
+6. Run the application
+python app.py
+
+7. Open in your browser
+http://127.0.0.1:5000/
+
+Project Structure
+estimate_app/
+│
+├── app.py               # Main Flask application logic
+├── models.csv           # Model price list
+├── colors.csv           # Color price list
+├── requirements.txt     # Dependency list
+│
+├── static/              # (Optional) Logos, images, static assets
+│
+├── templates/
+│   ├── client_form.html     # Stylish client input form
+│   ├── select_model.html    # Form for selecting model/colors/area
+│   └── invoice.html         # Invoice template (for PDF and browser)
+│
+└── venv/               # Virtual environment (do NOT commit to git)
+
+Example Workflow
+
+Enter client information
+
+Select an item: category, model, up to 5 colors, area
+
+View the complete estimate with totals
+
+Download the formatted PDF document
+
+Dependencies
+
+See requirements.txt.
+The project uses:
+
+Flask — web server
+
+pandas — working with price lists
+
+pdfkit — generate PDF from HTML
+
+wkhtmltopdf — external binary required by pdfkit
+
+Possible Enhancements
+
+Shopping cart: support multiple items in one estimate
+
+Order/client history
+
+Custom logo & branding
+
+Emailing PDF to the client
+
+Advanced filtering and sorting for models/colors
+
+Internationalization (multi-language support)
+
+
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+
+
 # Сметное приложение для расчёта стоимости моделей и цветов с PDF-генерацией
 
 ## Описание
